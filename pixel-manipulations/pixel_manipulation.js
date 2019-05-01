@@ -6,8 +6,8 @@ const width = 720;
 const height = 480;
 
 function preload() {
-    underImage = loadImage("worldMap.jpeg");
-    underImage.loadPixels();
+    underImage = loadImage('worldMap.jpeg');
+    //underImage.loadPixels();
 }
 
 function setup() {
@@ -23,21 +23,23 @@ function setup() {
         img.pixels[i + 2] = blue(0);
         img.pixels[i + 3] = alpha(0);
     }    
+    frameRate(60);
 }
 
 function draw() {
     img.loadPixels();
-    underImage.loadPixels();
+   // underImage.loadPixels();
+    let posX = random(0, width)
+    let posY = random(0, height)
+    if(underImage.get(posX, posY)[0] != 0){
+        img.set(posX, posY, color(red(random(0,255)), green(random(0,255)), blue(random(0, 255))));
+        img.set(posX-1, posY+1, color(red(random(0,255)), green(random(0,255)), blue(random(0, 255))));
+        img.set(posX+1, posY-1, color(red(random(0,255)), green(random(0,255)), blue(random(0, 255))));
+        img.set(posX-1, posY-1, color(red(random(0,255)), green(random(0,255)), blue(random(0, 255))));
+    }
     img.updatePixels();
-    image(img, 0, 0);
-    image(underImage,0,0);
+    image(img, 0, 0)
+   
 }
 
-function mouseMoved() {
-    //console.log(underImage.get(mouseX,mouseY))
-    
-    if(underImage.get(mouseX,mouseY) === undefined){
-        img.set(mouseX, mouseY, color(red(random(0,255)), green(random(0,255)), blue(random(0, 255))));
-    }
-    
-}
+function mouseMoved() {}
